@@ -1,6 +1,6 @@
 import {GridContainer, GridItem} from "./InputGridStyles.jsx"
 
-function InputGrid({grid, setGrid, inputRefs}){
+function InputGrid({grid, setGrid, inputRefs, setSolutions}){
 
     const isLetter = (c) => /^[a-zA-Z]$/.test(c);
 
@@ -55,8 +55,13 @@ function InputGrid({grid, setGrid, inputRefs}){
     }
 
 
+    const getSolutions = () => {
+        setSolutions(["dummy", "dummy", "data"])
+    }
+
     return (
         
+        <div>
         <GridContainer>
         {grid.map((row, rowIndex) =>
         
@@ -84,6 +89,8 @@ function InputGrid({grid, setGrid, inputRefs}){
         )}
 
         </GridContainer>
+        <button onClick = {getSolutions}>Solve</button>
+        </div>
 
     )
 }

@@ -1,30 +1,11 @@
-// import InputGrid from "../components/InputGrid/InputGrid.jsx"
-// import {SolveContainer} from "./SolveStyles.jsx"
-
-// function Solve(){
-//     /*
-//     Parent component, must store all states
-
-//     4x4 grid for user to input letters into, use "solve" button to display solutions
-
-//      const [solutions, setSolutions] = useState([]);
-//         when "solve" button is clicked, we call setSolutions (should render everything... cuz we have a solutions component)
-//     */
-    
-//     return (
-      
-//         <InputGrid/>
-//         //to do: solve button, display solutions
-//     )
-// }
-
-// export default Solve;
-
-
-
-
 import React, {useState, useRef} from "react";
+import {SolveContainer, Background} from "./SolveStyles.jsx"
 import InputGrid from "../components/InputGrid/InputGrid.jsx";
+import Solutions from "../components/Solutions/Solutions.jsx"
+
+
+import backgroundImg from "../assets/background.png"
+
 
 function Solve() {
   const [grid, setGrid] = useState(Array(4).fill().map(() => Array(4).fill("")));
@@ -34,18 +15,23 @@ function Solve() {
     )
   );
 
-  const [solutions, setSolutions] = useState([]);
+  const [solutions, setSolutions] = useState(["test", "this", "out"]);
   const [path, setPath] = useState([]);
 
+  //setSolutions with API call (now done in InputGrid w "Solve" button)
+
+
   return (
-    //call grid, pass along setGrid function!
 
+    //Solutions component - send "solutions"
+      //for each solution, render a solutionItem
     <>
-      <InputGrid grid = {grid} setGrid = {setGrid} inputRefs = {inputRefs}/>
-
-      <p>hi</p>
+      
+    <SolveContainer>
+      <InputGrid grid = {grid} setGrid = {setGrid} inputRefs = {inputRefs} setSolutions = {setSolutions}/>  
+      <Solutions solutions = {solutions}/>
+    </SolveContainer>
     </>
-
   )
 }
 
