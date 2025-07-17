@@ -15,7 +15,7 @@ function Solve() {
     )
   );
 
-  const [solutions, setSolutions] = useState(["test", "this", "out"]);
+  const [solutions, setSolutions] = useState([]);
   const [path, setPath] = useState([]);
 
   //setSolutions with API call (now done in InputGrid w "Solve" button)

@@ -55,8 +55,21 @@ function InputGrid({grid, setGrid, inputRefs, setSolutions}){
     }
 
 
+    //future: API call
+    //assumption: solutions return as {point val: [words]}
+        //{800: ["hello", "there"], 400: ["cats", "food"], 100: ["lol"]}
+
+    const solutions = [
+        { pointVal: 800, words: ["hello", "there", "hello", "there", "hello", "there", "hello", "there", "hello", "there", "hello", "there"
+            , "hello", "there", "hello", "there", "hello", "there", "hello", "there"
+        ] },
+        { pointVal: 400, words: ["cats", "food"] },
+        { pointVal: 100, words: ["lol"] }
+    ];
+
     const getSolutions = () => {
-        setSolutions(["dummy", "dummy", "data"])
+        // setSolutions({800: ["hello", "there"], 400: ["cats", "food"], 100: ["lol"]})
+        setSolutions(solutions)
     }
 
     return (
