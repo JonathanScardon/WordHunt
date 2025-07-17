@@ -7,4 +7,5 @@ grid-template-columns: repeat(4, minmax(10px, 100px));
 
 export const GridItem = styled.input`
 aspect-ratio: 1 / 1;
+caret-color: transparent;
 `
