@@ -1,6 +1,9 @@
-import {GridContainer, GridItem} from "./InputGridStyles.jsx"
+import {GridContainer, GridItem, SolveButton} from "./InputGridStyles.jsx"
 
-function InputGrid({grid, setGrid, inputRefs, setSolutions}){
+
+//TODO: overwrite current values on the grid
+
+function InputGrid({grid, setGrid, inputRefs, setSolutions, solutionPath}){
 
     const isLetter = (c) => /^[a-zA-Z]$/.test(c);
 
@@ -56,21 +59,43 @@ function InputGrid({grid, setGrid, inputRefs, setSolutions}){
 
 
     //future: API call
-    //assumption: solutions return as {point val: [words]}
-        //{800: ["hello", "there"], 400: ["cats", "food"], 100: ["lol"]}
-
     const solutions = [
-        { pointVal: 800, words: ["hello", "there", "hello", "there", "hello", "there", "hello", "there", "hello", "there", "hello", "there"
-            , "hello", "there", "hello", "there", "hello", "there", "hello", "there"
-        ] },
-        { pointVal: 400, words: ["cats", "food"] },
-        { pointVal: 100, words: ["lol"] }
+        { 
+            pointVal: 800, 
+            words: [
+                {word: "hello", path: [[0, 0], [0, 1],[0, 2], [0, 3], [1, 3]]},
+                {word: "there", path: [[0, 0], [1, 0], [2, 0], [2, 1], [2, 2]]}
+            ] 
+        },
+        { 
+            pointVal: 400, 
+            words: [
+                {word: "cats", path: [[1, 0], [1, 1], [1, 2], [1, 3]]},
+                {word: "food", path: [[3, 3], [2, 3], [1, 3], [0, 3]]}
+            ] 
+        },
+        { 
+            pointVal: 100,
+            words: [
+                {word: "lol", path: [[1, 1], [1, 2], [2, 2]]}
+            ] 
+        }
     ];
+
+    const newSolutions = [
+        { poinval: 800, words: []}
+    ]
 
     const getSolutions = () => {
         // setSolutions({800: ["hello", "there"], 400: ["cats", "food"], 100: ["lol"]})
         setSolutions(solutions)
     }
+
+
+    const isHighlighted = (row, col) => {
+        return solutionPath.some(([r, c]) => r === row && c === col);
+    }
+
 
     return (
         
@@ -91,9 +116,8 @@ function InputGrid({grid, setGrid, inputRefs, setSolutions}){
                 maxLength = {1}
                 onChange = {(e) => handleChange(rowIndex, colIndex, e.target.value)}
                 onKeyDown = {(e) => handleKeyEvent(rowIndex, colIndex, e)}
+                style = {{background: isHighlighted(rowIndex, colIndex) ? "green" : ""}}
                 />
-
-
 
             )
 
@@ -102,7 +126,7 @@ function InputGrid({grid, setGrid, inputRefs, setSolutions}){
         )}
 
         </GridContainer>
-        <button onClick = {getSolutions}>Solve</button>
+        <SolveButton onClick = {getSolutions}>Solve</SolveButton>
         </div>
 
     )
