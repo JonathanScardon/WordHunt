@@ -16,20 +16,14 @@ function Solve() {
   );
 
   const [solutions, setSolutions] = useState([]);
-  const [path, setPath] = useState([]);
-
-  //setSolutions with API call (now done in InputGrid w "Solve" button)
+  const [solutionPath, setSolutionPath] = useState([[]]);
 
 
   return (
-
-    //Solutions component - send "solutions"
-      //for each solution, render a solutionItem
     <>
-      
     <SolveContainer>
-      <InputGrid grid = {grid} setGrid = {setGrid} inputRefs = {inputRefs} setSolutions = {setSolutions}/>  
-      <Solutions solutions = {solutions}/>
+      <InputGrid grid = {grid} setGrid = {setGrid} inputRefs = {inputRefs} setSolutions = {setSolutions} solutionPath = {solutionPath}/>  
+      <Solutions solutions = {solutions} setSolutionPath = {setSolutionPath}/>
     </SolveContainer>
     </>
   )

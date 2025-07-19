@@ -1,6 +1,6 @@
 import {SolutionsContainer, ScoreSection, ScoreTitle, SolutionItem} from "./SolutionsStyles.jsx"
 
-function Solutions({solutions}){
+function Solutions({solutions, setSolutionPath}){
     if (solutions.length == 0){
         return null;
     }
@@ -10,15 +10,18 @@ function Solutions({solutions}){
         {solutions.map(({ pointVal, words }) => (
             <ScoreSection key = {pointVal}>
                 <ScoreTitle>{pointVal}</ScoreTitle>
-                {words.map((w, i) => (
-                    <SolutionItem key = {i}>
-                        {w}
+                {words.map(({word, path}, i) => (
+                    <SolutionItem 
+                        key = {`${pointVal}-${i}`}
+                        onMouseEnter = {() => setSolutionPath(path)}
+                        onMouseLeave= {() => setSolutionPath([])}
+                        >
+                            {word}
                     </SolutionItem>
                 ))}
             </ScoreSection>
         ))}
         </SolutionsContainer>
-
     )
 }
 

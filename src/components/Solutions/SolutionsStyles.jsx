@@ -1,5 +1,6 @@
 import styled from "styled-components"
 
+//TODO: make this a scrollable section?
 export const SolutionsContainer = styled.div`
 background:blue;
 width: 50%;
