@@ -43,7 +43,6 @@ function InputGrid({grid, setGrid, inputRefs, setSolutions, solutionPath}){
             handleChange(row, col, "");
         }
         else if (e.key == "ArrowUp"){
-            console.log("up")
             updateFocus(row, col, [-1, 0])
         }
         else if (e.key == "ArrowDown"){
@@ -96,6 +95,27 @@ function InputGrid({grid, setGrid, inputRefs, setSolutions, solutionPath}){
         return solutionPath.some(([r, c]) => r === row && c === col);
     }
 
+    const highlightColor = (row, col) => {
+        if (solutionPath.length == 0){
+            return "transparent"
+        }
+
+        //first letter in green
+        if (row === solutionPath[0][0] && col == solutionPath[0][1]){
+            console.log('returning green')
+            return "green"
+        }
+
+        //remaining in white
+        for (let i = 1; i < solutionPath.length; i++){
+            if (row == solutionPath[i][0] && col == solutionPath[i][1]){
+                return "white"
+            }
+        }
+
+        return "transparent"
+    }
+
 
     return (
         
@@ -108,7 +128,6 @@ function InputGrid({grid, setGrid, inputRefs, setSolutions, solutionPath}){
             row.map((letter, colIndex) =>
                 
                 //current: refocus on valid inputs
-
                 <GridItem 
                 key = {`${rowIndex}-${colIndex}`}
                 ref = {inputRefs.current[rowIndex][colIndex]}
@@ -116,7 +135,7 @@ function InputGrid({grid, setGrid, inputRefs, setSolutions, solutionPath}){
                 maxLength = {1}
                 onChange = {(e) => handleChange(rowIndex, colIndex, e.target.value)}
                 onKeyDown = {(e) => handleKeyEvent(rowIndex, colIndex, e)}
-                style = {{background: isHighlighted(rowIndex, colIndex) ? "green" : ""}}
+                style={{ boxShadow: `0 0 5px 5px ${highlightColor(rowIndex, colIndex)}`}}
                 />
 
             )
