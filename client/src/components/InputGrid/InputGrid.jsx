@@ -57,34 +57,20 @@ function InputGrid({grid, setGrid, inputRefs, setSolutions, solutionPath}){
     }
 
 
-    //future: API call
-    const solutions = [
-        { 
-            pointVal: 800, 
-            words: [
-                {word: "hello", path: [[0, 0], [0, 1],[0, 2], [0, 3], [1, 3]]},
-                {word: "there", path: [[0, 0], [1, 0], [2, 0], [2, 1], [2, 2]]}
-            ] 
-        },
-        { 
-            pointVal: 400, 
-            words: [
-                {word: "cats", path: [[1, 0], [1, 1], [1, 2], [1, 3]]},
-                {word: "food", path: [[3, 3], [2, 3], [1, 3], [0, 3]]}
-            ] 
-        },
-        { 
-            pointVal: 100,
-            words: [
-                {word: "lol", path: [[1, 1], [1, 2], [2, 2]]},
-                {word: "toy", path: [[0, 0], [1, 1], [0, 2]]}
-            ] 
-        }
-    ];
-
-
-
     const solve = async () => {
+        let isPopulated = true;
+        for (let i = 0; i < grid.length; i++){
+            for (let j = 0; j < grid.length; j++){
+                if (grid[i][j] == ""){
+                    isPopulated = false;
+                }
+            }
+        }
+
+        if (!isPopulated){
+            return;
+        }
+
         try {
             const response = await fetch('http://localhost:3000/solve', {
             method: "POST",
