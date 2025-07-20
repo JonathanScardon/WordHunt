@@ -10,6 +10,8 @@ column-gap: 15px;
 export const GridItem = styled.input`
 aspect-ratio: 1 / 1;
 caret-color: transparent;
+color:white;
+background-color: black;
 `
 
 export const SolveButton = styled.button`
