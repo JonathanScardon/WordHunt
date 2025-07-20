@@ -76,24 +76,38 @@ function InputGrid({grid, setGrid, inputRefs, setSolutions, solutionPath}){
         { 
             pointVal: 100,
             words: [
-                {word: "lol", path: [[1, 1], [1, 2], [2, 2]]}
+                {word: "lol", path: [[1, 1], [1, 2], [2, 2]]},
+                {word: "toy", path: [[0, 0], [1, 1], [0, 2]]}
             ] 
         }
     ];
 
-    const newSolutions = [
-        { poinval: 800, words: []}
-    ]
 
-    const getSolutions = () => {
-        // setSolutions({800: ["hello", "there"], 400: ["cats", "food"], 100: ["lol"]})
-        setSolutions(solutions)
+
+    const solve = async () => {
+        try {
+            const response = await fetch('http://localhost:3000/solve', {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                grid: grid.map(row => row.map(letter => letter.toLowerCase()))
+            })
+        });
+
+        if (!response.ok){
+            throw new Error("backend failure")
+        }
+
+        const data = await response.json();
+        setSolutions(data);
+        console.log(grid);
+        console.log(data);
+    } catch (err){
+        console.log("error", err);
     }
-
-
-    const isHighlighted = (row, col) => {
-        return solutionPath.some(([r, c]) => r === row && c === col);
-    }
+    };
 
     const highlightColor = (row, col) => {
         if (solutionPath.length == 0){
@@ -118,16 +132,10 @@ function InputGrid({grid, setGrid, inputRefs, setSolutions, solutionPath}){
 
 
     return (
-        
         <div>
         <GridContainer>
-        {grid.map((row, rowIndex) =>
-        
-            // <div>row</div>
-            
+        {grid.map((row, rowIndex) =>            
             row.map((letter, colIndex) =>
-                
-                //current: refocus on valid inputs
                 <GridItem 
                 key = {`${rowIndex}-${colIndex}`}
                 ref = {inputRefs.current[rowIndex][colIndex]}
@@ -137,15 +145,10 @@ function InputGrid({grid, setGrid, inputRefs, setSolutions, solutionPath}){
                 onKeyDown = {(e) => handleKeyEvent(rowIndex, colIndex, e)}
                 style={{ boxShadow: `0 0 5px 5px ${highlightColor(rowIndex, colIndex)}`}}
                 />
-
             )
-
-
-
         )}
-
         </GridContainer>
-        <SolveButton onClick = {getSolutions}>Solve</SolveButton>
+        <SolveButton onClick = {solve}>Solve</SolveButton>
         </div>
 
     )
