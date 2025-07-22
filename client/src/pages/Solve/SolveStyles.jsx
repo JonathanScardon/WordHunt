@@ -1,13 +1,11 @@
 import styled from "styled-components"
 
 export const SolveContainer = styled.div`
-// background: blue;
-display: flex;
-justify-content: space-between;
 margin-left: 20%;
 margin-right: 20%;
-margin-top: 10%;
+margin-top: 6%;
 z-index:1;
+position:relative;
 `
 
 export const Background = styled.img`
@@ -22,3 +20,15 @@ export const Background = styled.img`
   image-rendering: pixelated;
   z-index: 0;
 `;
+
+
+export const SolutionDisplay = styled.div`
+display: flex;
+justify-content: space-between;
+`
+
+export const Title = styled.h2`
+// background:purple;
+text-align:center;
+margin-bottom: 8%;
+`
