@@ -1,20 +1,27 @@
-import {SolutionsContainer, Title, ScoreSection, ScoreTitle, SolutionItem} from "./SolutionsStyles.jsx"
+import {Wrapper, SolutionsContainer, Title, ScoreSection, ScoreTitle, Score, SolutionItem} from "./SolutionsStyles.jsx"
 
 function Solutions({solutions, setSolutionPath}){
     if (solutions.length == 0){
         return (
-            <SolutionsContainer>
+            <Wrapper>
                 <Title>Solutions</Title>
-            </SolutionsContainer>
+            </Wrapper>
         )
     }
 
     return (
-        <SolutionsContainer>
+        <Wrapper>
         <Title>Solutions</Title>
+        <SolutionsContainer>
         {solutions.map(({ pointVal, words }) => (
             <ScoreSection key = {pointVal}>
-                <ScoreTitle>{pointVal}</ScoreTitle>
+
+                <ScoreTitle>
+                    <Score>
+                    {pointVal + " points"}                     
+                    </Score>
+                </ScoreTitle>
+
                 {words.map(({word, path}, i) => (
                     <SolutionItem 
                         key = {`${pointVal}-${i}`}
@@ -27,6 +34,7 @@ function Solutions({solutions, setSolutionPath}){
             </ScoreSection>
         ))}
         </SolutionsContainer>
+        </Wrapper>
     )
 }
 
