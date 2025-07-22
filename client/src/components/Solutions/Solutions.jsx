@@ -1,12 +1,17 @@
-import {SolutionsContainer, ScoreSection, ScoreTitle, SolutionItem} from "./SolutionsStyles.jsx"
+import {SolutionsContainer, Title, ScoreSection, ScoreTitle, SolutionItem} from "./SolutionsStyles.jsx"
 
 function Solutions({solutions, setSolutionPath}){
     if (solutions.length == 0){
-        return null;
+        return (
+            <SolutionsContainer>
+                <Title>Solutions</Title>
+            </SolutionsContainer>
+        )
     }
 
     return (
         <SolutionsContainer>
+        <Title>Solutions</Title>
         {solutions.map(({ pointVal, words }) => (
             <ScoreSection key = {pointVal}>
                 <ScoreTitle>{pointVal}</ScoreTitle>

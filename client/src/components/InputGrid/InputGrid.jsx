@@ -1,4 +1,4 @@
-import {GridContainer, GridItem, SolveButton} from "./InputGridStyles.jsx"
+import {GridContainer, GridItem, SolveButton, Title} from "./InputGridStyles.jsx"
 
 
 //TODO: overwrite current values on the grid
@@ -119,6 +119,7 @@ function InputGrid({grid, setGrid, inputRefs, setSolutions, solutionPath}){
 
     return (
         <div>
+        <Title>Input Board</Title>
         <GridContainer>
         {grid.map((row, rowIndex) =>            
             row.map((letter, colIndex) =>
