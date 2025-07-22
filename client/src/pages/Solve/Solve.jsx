@@ -34,6 +34,7 @@ function Solve() {
 
       </SolutionDisplay>
 
+      <PathDisplay solutionPath = {solutionPath}></PathDisplay>
 
     </SolveContainer>
     </>
