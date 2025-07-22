@@ -1,4 +1,4 @@
-import {GridContainer, GridItem, SolveButton, Title} from "./InputGridStyles.jsx"
+import {GridContainer, GridItem, Button, Title, Buttons} from "./InputGridStyles.jsx"
 
 
 //TODO: overwrite current values on the grid
@@ -17,6 +17,12 @@ function InputGrid({grid, setGrid, inputRefs, setSolutions, solutionPath}){
             newGrid[row][col] = "";
         }
         setGrid(newGrid);
+    }
+
+    const clear = () => {
+        const newGrid = Array(4).fill().map(() => Array(4).fill(""));
+        setGrid(newGrid);
+        setSolutions([]);
     }
 
     
@@ -134,13 +140,13 @@ function InputGrid({grid, setGrid, inputRefs, setSolutions, solutionPath}){
 
         //first letter in green
         if (row === solutionPath[0][0] && col == solutionPath[0][1]){
-            return "green"
+            return "white"
         }
 
         //remaining in white
         for (let i = 1; i < solutionPath.length; i++){
             if (row == solutionPath[i][0] && col == solutionPath[i][1]){
-                return "white"
+                return "rgb(106, 188, 58)"
             }
         }
 
@@ -166,7 +172,11 @@ function InputGrid({grid, setGrid, inputRefs, setSolutions, solutionPath}){
             )
         )}
         </GridContainer>
-        <SolveButton onClick = {solve}>Solve</SolveButton>
+        <Buttons>
+            <Button onClick = {solve}>Solve</Button> 
+            <Button onClick = {clear}>Clear</Button> 
+
+        </Buttons>
         </div>
 
     )

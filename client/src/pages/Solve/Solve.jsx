@@ -24,6 +24,7 @@ function Solve() {
     <Background src = {backgroundImg}/>
 
     <SolveContainer>
+
       <Title>The Ultimate Cheat Tool!</Title>
 
       <SolutionDisplay>

@@ -1,17 +1,12 @@
 import styled from "styled-components"
 
-// //TODO: make this a scrollable section?
-// export const SolutionsContainer = styled.div`
-// // background:blue;
-// width: 50%;
-// overflow: auto;
-// `
-
+export const Wrapper = styled.div`
+width: 45%;
+`
 
 export const SolutionsContainer = styled.div`
-  width: 50%;
-  max-height: 50vh;       /* or fixed height like height: 400px */
-  overflow-y: auto;        /* enables vertical scrolling when needed */
+  max-height: 50vh;
+  overflow-y: auto;
 
   &::-webkit-scrollbar {
     width: 7px;
@@ -30,6 +25,7 @@ export const SolutionsContainer = styled.div`
   &::-webkit-scrollbar-thumb:hover {
     background: #454545ff;
   }
+
 `;
 
 
@@ -43,19 +39,29 @@ export const ScoreSection = styled.div`
 `
 
 export const SolutionItem = styled.div`
-background:purple;
 display: inline-block;
 margin-bottom: 2%;
 margin-left: 2%;
 margin-right: 2%;
-padding: 1%;
+padding: 2%;
 font-size:90%;
-// border: 2px solid black;
 border-radius: 3%;
+background: #6abc3a;
+box-shadow: inset 0px 5px #ffffff36;
 `
 
 export const ScoreTitle = styled.div`
-background:green;
 margin-bottom: 2%;
 text-align:center;
+border-radius:2px;
+padding-top: 1%;
+padding-bottom: 1%;
+`
+
+export const Score = styled.div`
+background: #009688;
+box-shadow: inset 0px 5px #ffffff36;
+padding-top:1.5%;
+padding-bottom:1.5%;
+border-radius:2px;
 `
