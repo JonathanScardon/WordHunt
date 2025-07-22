@@ -5,10 +5,10 @@ import {GridContainer, GridItem, SolveButton, Title} from "./InputGridStyles.jsx
 
 function InputGrid({grid, setGrid, inputRefs, setSolutions, solutionPath}){
 
-    const isLetter = (c) => /^[a-zA-Z]$/.test(c);
-
     const handleChange = (row, col, val) => {
+        const isLetter = (c) => /^[a-zA-Z]$/.test(c);
         const newGrid = grid.map((r) => [...r]);
+        
         if (isLetter(val)){
             newGrid[row][col] = val.toUpperCase();
             updateFocusNext(row, col);
@@ -39,20 +39,51 @@ function InputGrid({grid, setGrid, inputRefs, setSolutions, solutionPath}){
     }
 
     const handleKeyEvent = (row, col, e) => {
+        let n = grid.length;
+        let m = grid[0].length;
+
         if (e.key === "Backspace"){
-            handleChange(row, col, "");
+            if (e.target.value != ""){
+                handleChange(row, col, "");
+            }
+            else if (col == 0){
+                updateFocus(row, col, [-1, m-1])
+            }
+            else{
+                updateFocus(row, col, [0, -1])
+            }
         }
         else if (e.key == "ArrowUp"){
-            updateFocus(row, col, [-1, 0])
+            if (row == 0){
+                updateFocus(row, col, [n-1, 0])
+            }
+            else{
+                updateFocus(row, col, [-1, 0])
+            }
         }
         else if (e.key == "ArrowDown"){
-            updateFocus(row, col, [1, 0])
+            if (row == n-1){
+                updateFocus(row, col, [1-n, 0])
+            }
+            else{
+                updateFocus(row, col, [1, 0])
+            }
         }
         else if (e.key == "ArrowLeft"){
-            updateFocus(row, col, [0, -1])
+            if (col == 0){
+                updateFocus(row, col, [0, m-1])
+            }
+            else {
+                updateFocus(row, col, [0, -1])
+            }
         }
         else if (e.key == "ArrowRight"){
-            updateFocus(row, col, [0, 1])
+            if (col == m-1){
+                updateFocus(row, col, [0, 1-m])
+            }
+            else{
+                updateFocus(row, col, [0, 1])
+            }
         }
     }
 
@@ -88,8 +119,6 @@ function InputGrid({grid, setGrid, inputRefs, setSolutions, solutionPath}){
 
         const data = await response.json();
         setSolutions(data);
-        console.log(grid);
-        console.log(data);
     } catch (err){
         console.log("error", err);
     }
@@ -102,7 +131,6 @@ function InputGrid({grid, setGrid, inputRefs, setSolutions, solutionPath}){
 
         //first letter in green
         if (row === solutionPath[0][0] && col == solutionPath[0][1]){
-            console.log('returning green')
             return "green"
         }
 
