@@ -42,7 +42,10 @@ function InputGrid({grid, setGrid, inputRefs, setSolutions, solutionPath}){
         let n = grid.length;
         let m = grid[0].length;
 
-        if (e.key === "Backspace"){
+        if (e.key == "Enter"){
+            solve();
+        }
+        else if (e.key === "Backspace"){
             if (e.target.value != ""){
                 handleChange(row, col, "");
             }
