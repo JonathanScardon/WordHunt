@@ -1,13 +1,15 @@
+import {DataContainer} from "./PlayDataStyles.jsx"
+
 function PlayData({wordCount, score}){
     return (
-        <div>
+        <DataContainer>
             <div>
                 Words: {wordCount}
             </div>
             <div>
                 Score: {score}
             </div>
-        </div>
+        </DataContainer>
     )
 }
 
