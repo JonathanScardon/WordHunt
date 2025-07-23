@@ -14,6 +14,10 @@ function Home(){
              <Link to = "/solve">
                 <button >Solve</button>
             </Link>
+
+            <Link to = "/play">
+                <button>Play</button>
+            </Link>
         </HomeContainer>
         </>
        
