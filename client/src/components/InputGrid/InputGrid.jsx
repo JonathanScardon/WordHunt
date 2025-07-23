@@ -126,8 +126,8 @@ function InputGrid({grid, setGrid, inputRefs, setSolutions, solutionPath}){
             throw new Error("backend failure")
         }
 
-        const data = await response.json();
-        setSolutions(data);
+        const {solutions, solutionSet} = await response.json();
+        setSolutions(solutions);
     } catch (err){
         console.log("error", err);
     }

@@ -4,7 +4,7 @@ import PlayData from "../../components/PlayData/PlayData.jsx"
 import PlayerGuess from "../../components/PlayerGuess/PlayerGuess.jsx"
 
 function Play(){
-    const [grid, setGrid] = useState([Array(4).fill().map(() => Array(4).fill(""))]);
+    const [grid, setGrid] = useState(Array(4).fill().map(() => Array(4).fill("")));
     const [wordCount, setWordCount] = useState(0);
     const [score, setScore] = useState(0);
     const [guess, setGuess] = useState("");
@@ -15,24 +15,52 @@ function Play(){
 
     const [path, setPath] = useState([])
 
-    const tempSolutions = ["aaaa", "cccc"]
+    
+    const setUp = async () => {
+        //retrieve board
+        try {
+            const response = await fetch('http://localhost:3000/generateGrid', {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' }
+            });
 
-    const tempGrid = [
-        ["a", "b", "c", "d"],
-        ["a", "b", "c", "d"],
-        ["a", "b", "c", "d"],
-        ["a", "b", "c", "d"]       
-    ]
+            if (!response.ok) {
+                throw new Error('backend failure');
+            }
 
+            const data = await response.json();
+            setGrid(data);
 
-    //from backend retrieve:
-        //grid
-        //solution set
-        //solutions w/ paths (endpage display)
+            initSolutions(data);
+        } catch (err) {
+            console.error('error', err);
+        }
+    };
+
+    const initSolutions = async (grid) => {
+        try {
+            const response = await fetch('http://localhost:3000/solve', {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    grid: grid.map(row => row.map(letter => letter.toLowerCase()))
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error("backend failure");
+            }
+
+            const { solutions, solutionSet } = await response.json();
+            setSolutions(new Set(solutionSet));
+        } catch (err) {
+            console.log("error", err);
+        }
+    };
+
    
     useEffect(() => {
-        setGrid(tempGrid)
-        setSolutions(new Set(tempSolutions))
+        setUp();
     }, [])
 
 
