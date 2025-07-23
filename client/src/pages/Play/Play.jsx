@@ -9,6 +9,14 @@ function Play(){
     const [score, setScore] = useState(0);
     const [guess, setGuess] = useState("");
 
+    const [solutions, setSolutions] = useState(new Set());
+
+    const [found, setFound] = useState(new Set());
+
+    const [path, setPath] = useState([])
+
+    const tempSolutions = ["aaaa", "cccc"]
+
     const tempGrid = [
         ["a", "b", "c", "d"],
         ["a", "b", "c", "d"],
@@ -16,10 +24,31 @@ function Play(){
         ["a", "b", "c", "d"]       
     ]
 
+
+    //from backend retrieve:
+        //grid
+        //solution set
+        //solutions w/ paths (endpage display)
+   
     useEffect(() => {
         setGrid(tempGrid)
+        setSolutions(new Set(tempSolutions))
     }, [])
 
+
+    const highlightColor = (row, col) => {
+        if (path.length == 0){
+            return "transparent"
+        }
+
+        for (let i = 0; i < path.length; i++){
+            if (row == path[i][0] && col == path[i][1]){
+                return "blue"
+            }
+        }
+
+        return "transparent"
+    }
 
     return (
         <PlayContainer>
@@ -28,14 +57,27 @@ function Play(){
         <GridContainer>
             {grid.map((row, rowIndex) =>            
                 row.map((letter, colIndex) =>
-                    <GridItem key = {`${rowIndex}-${colIndex}`}>
+                    <GridItem
+                    key = {`${rowIndex}-${colIndex}`}
+                    style = {{ boxShadow: `0 0 5px 5px ${highlightColor(rowIndex, colIndex)}`}}
+                    >
                         {letter}
                     </GridItem>
                 )
             )}
         </GridContainer>
 
-        <PlayerGuess guess = {guess} setGuess = {setGuess}/>
+        <PlayerGuess 
+        guess = {guess}
+        setGuess = {setGuess}
+        solutions = {solutions}
+        setWordCount = {setWordCount} 
+        setScore = {setScore}
+        found = {found}
+        setFound = {setFound}
+        setPath = {setPath}
+        grid = {grid}
+        />
 
         </PlayContainer>
     )
