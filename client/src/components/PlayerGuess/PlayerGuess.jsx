@@ -2,34 +2,24 @@ import {GuessContainer, InputBox} from './PlayerGuessStyles.jsx'
 
 function PlayerGuess({guess, setGuess, solutions, setWordCount, setScore, found, setFound, setPath, grid}){
     
-
     function findPaths(grid, visiting, row, col, word, i){
         const dirs = [[0, 1], [1, 0], [0, -1], [-1, 0], [1, 1], [1, -1], [-1, 1], [-1, -1]];
         const visited = (r, c) => visiting.some(([x, y]) => x === r && y === c);
 
-        //base case
         if (i == word.length){
             const path = [...visiting];
-            console.log("found path for " + word + " at " + path)
             setPath(path);
-            //setPath
-                //GridItem will determine its box shadow based on path!
         }
 
         for (const [dx, dy] of dirs){
             const x = row + dx;
             const y = col + dy;
-
             if (x >= 0 && x < grid.length && y >= 0 && y < grid[0].length){
-
-                //found the next letter!
                 if (grid[x][y] == word[i] && !visited(x, y)){
                     visiting.push([x, y]);
                     findPaths(grid, visiting, x, y, word, i+1);
-                    visiting.pop([x, y]);
+                    visiting.pop();
                 }
-
-
             }
         }
     }

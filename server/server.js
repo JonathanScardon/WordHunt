@@ -13,24 +13,82 @@ const englishDict = file
   .map(word => word.trim().toLowerCase())
   .filter(Boolean);
 
+const letterFreqs = [
+    { range: [0, .113], letter: 'e' },
+    { range: [.113, .198], letter: 'a' },
+    { range: [.198, .273], letter: 'r' },
+    { range: [.273, .348], letter: 'i' },
+    { range: [.348, .420], letter: 'o' },
+    { range: [.420, .490], letter: 't' },
+    { range: [.490, .557], letter: 'n' },
+    { range: [.557, .614], letter: 's' },
+    { range: [.614, .669], letter: 'l' },
+    { range: [.669, .714], letter: 'c' },
+    { range: [.714, .750], letter: 'u' },
+    { range: [.750, .784], letter: 'd' },
+    { range: [.784, .816], letter: 'p' },
+    { range: [.816, .846], letter: 'm' },
+    { range: [.846, .876], letter: 'h' },
+    { range: [.876, .901], letter: 'g' },
+    { range: [.901, .922], letter: 'b' },
+    { range: [.922, .940], letter: 'f' },
+    { range: [.940, .958], letter: 'y' },
+    { range: [.958, .971], letter: 'w' },
+    { range: [.971, .982], letter: 'k' },
+    { range: [.982, .991], letter: 'v' },
+    { range: [.991, .994], letter: 'x' },
+    { range: [.994, .997], letter: 'z' },
+    { range: [.997, .999], letter: 'j' },
+    { range: [.999, 1], letter: 'q' },
+];
 
 
 app.post('/solve', (req, res) => {
-    console.log("youve called the backend");
-
     const {grid} = req.body;
-    const solutionSet = new Set();
-    console.log(solutionSet);
+
+    let solutionSet = new Set();
     const solutions = solve(grid, solutionSet);
-    // console.log(solutions);
-    res.json(solutions);
+
+    res.json({
+        solutions: solutions,
+        solutionSet: Array.from(solutionSet)
+    })
 })
 
 
+
+// fills grid based on letter freqs
+app.get('/generateGrid', (req, res) => {
+    let grid = Array(4).fill().map(() => Array(4).fill(""));
+
+    for (let i = 0; i < grid.length; i++){
+        for (let j = 0; j < grid.length; j++){
+            let letter = "";
+            let letterKey = Math.random();
+
+            for (const item of letterFreqs){
+                if (letterKey >= item.range[0] && letterKey <= item.range[1]){
+                    letter = item.letter;
+                    break;
+                }
+            }
+            
+            grid[i][j] = letter;
+        }
+    }
+    res.json(grid)
+})
+
+/*
+Returns solutions in form 
+{pointVal: p,
+    words: [
+    [word: w,
+    path: [[]]
+    ]
+}
+*/
 function solve(grid, solutionSet){
-    console.log(grid);
-
-
     //init hashmap
     let positions = {};
     for (let i = 0; i < grid.length; i++){
@@ -99,7 +157,7 @@ function dfs(grid, visiting, row, col, word, i, solutions, solutionSet){
         if (r >= 0 && r < grid.length && c >= 0 && c < grid.length && grid[r][c] == word[i] && !visited(r, c)){
             visiting.push([r, c]);
             dfs(grid, visiting, r, c, word, i+1, solutions, solutionSet)
-            visiting.pop([r, c]);
+            visiting.pop();
         }
     }
 }
