@@ -1,15 +1,20 @@
 import {useState, useEffect} from "react";
 import {useNavigate} from "react-router-dom"
-import {PlayContainer, GridContainer, GridItem} from "./PlayStyles.jsx"
-import PlayData from "../../components/PlayData/PlayData.jsx"
+import PlayerData from "../../components/PlayerData/PlayerData.jsx"
 import PlayerGuess from "../../components/PlayerGuess/PlayerGuess.jsx"
 import PlayGrid from "../../components/PlayGrid/PlayGrid.jsx"
+import {PlayContainer, TimerContainer} from "./PlayStyles.jsx"
+import {Background} from "../../styles/globalStyles.jsx"
+import backgroundImg from "../../assets/background.png"
 
 function Play(){
     const [grid, setGrid] = useState(Array(4).fill().map(() => Array(4).fill("")));
     const [wordCount, setWordCount] = useState(0);
     const [score, setScore] = useState(0);
     const [guess, setGuess] = useState("");
+    const [submitted, setSubmitted] = useState(false);
+    const [correct, setCorrect] = useState(false);
+    const [inFound, setInFound] = useState(false);
     const [solutionSet, setSolutionSet] = useState(new Set());
     const [solutions, setSolutions] = useState([]);
     const [found, setFound] = useState(new Set());
@@ -30,7 +35,8 @@ function Play(){
             }
 
             const data = await response.json();
-            setGrid(data);
+            const newGrid = data.map(row => row.map(letter => letter.toUpperCase()))
+            setGrid(newGrid);
 
             initSolutions(data);
         } catch (err) {
@@ -81,7 +87,7 @@ function Play(){
 
         const timer = setTimeout(() => {
             setTimeLeft(prev => prev-1);
-        }, 10)
+        }, 1000)
 
         return () => clearTimeout(timer);
     }, [timeLeft])
@@ -94,18 +100,30 @@ function Play(){
 
     return (
         <PlayContainer>
-        <PlayData wordCount = {wordCount} score = {score}/>     
+        <Background src = {backgroundImg}/>
 
-
-        <div>
+        
+        <PlayerData wordCount = {wordCount} score = {score}/>     
+        
+        
+        <TimerContainer>
             {formatTime(timeLeft)}
-        </div> 
+        </TimerContainer> 
 
-        <PlayGrid grid = {grid} path = {path}/>
+        <PlayGrid
+        grid = {grid}
+        path = {path} 
+        submitted = {submitted}
+        correct = {correct}
+        inFound = {inFound}
+        endpage = {false}/>
 
         <PlayerGuess 
         guess = {guess}
         setGuess = {setGuess}
+        setSubmitted = {setSubmitted}
+        setCorrect = {setCorrect}
+        setInFound = {setInFound}
         solutionSet = {solutionSet}
         setWordCount = {setWordCount} 
         setScore = {setScore}

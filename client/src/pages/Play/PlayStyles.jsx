@@ -8,7 +8,6 @@ align-items:center;
 margin-left: 20%;
 margin-right: 20%;
 margin-top: 6%;
-z-index:1;
 position:relative;
 `
 
@@ -36,4 +35,9 @@ color:white;
 display: flex;
 align-items: center;
 justify-content: center;
+`
+
+export const TimerContainer = styled.div`
+// margin-top: 1%;
+margin-bottom: 1%;
 `
