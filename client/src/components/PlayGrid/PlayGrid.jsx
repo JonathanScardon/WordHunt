@@ -1,4 +1,5 @@
-import {GridContainer, GridItem, Title} from "./PlayGridStyles.jsx"
+import {GridItem} from "./PlayGridStyles.jsx"
+import {GridContainer, Title} from "../../styles/globalStyles.jsx"
 
 function PlayGrid({grid, path}){
     const highlightColor = (row, col) => {

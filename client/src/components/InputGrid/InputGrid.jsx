@@ -1,4 +1,5 @@
-import {GridContainer, GridItem, Button, Title, Buttons} from "./InputGridStyles.jsx"
+import {GridItem, Button, Buttons} from "./InputGridStyles.jsx"
+import {GridContainer, Title} from "../../styles/globalStyles.jsx"
 
 
 //TODO: overwrite current values on the grid

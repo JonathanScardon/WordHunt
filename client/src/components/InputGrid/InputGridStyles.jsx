@@ -1,11 +1,5 @@
 import styled from "styled-components"
 
-export const GridContainer = styled.div`
-display: grid;
-grid-template-columns: repeat(4, minmax(10px, 100px));
-row-gap: 15px;
-column-gap: 15px;
-`
 
 export const GridItem = styled.input`
 aspect-ratio: 1 / 1;
@@ -48,10 +42,4 @@ box-shadow: inset 0px 5px #ffffff4c;
 background:rgba(178, 0, 0, 1);
 }
 
-`
-
-export const Title = styled.h3`
-text-align:center;
-margin-top: 0px;
-margin-bottom: 20px;
 `
