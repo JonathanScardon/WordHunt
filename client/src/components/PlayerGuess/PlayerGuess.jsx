@@ -1,6 +1,6 @@
 import {GuessContainer, InputBox} from './PlayerGuessStyles.jsx'
 
-function PlayerGuess({guess, setGuess, solutionSet, setWordCount, setScore, found, setFound, setPath, grid}){
+function PlayerGuess({guess, setGuess, setSubmitted, setCorrect, setInFound, solutionSet, setWordCount, setScore, found, setFound, setPath, grid}){
     
     function findPaths(grid, visiting, row, col, word, i){
         const dirs = [[0, 1], [1, 0], [0, -1], [-1, 0], [1, 1], [1, -1], [-1, 1], [-1, -1]];
@@ -31,12 +31,14 @@ function PlayerGuess({guess, setGuess, solutionSet, setWordCount, setScore, foun
         const guess = val.replace(/[^a-zA-Z]/g, '');
         setGuess(guess);
 
+        const guessUpper = guess.toUpperCase()
+
         //display path
         if (guess.length > 0){
             for (let i = 0; i < grid.length; i++){
                 for (let j = 0; j < grid[0].length; j++){
-                    if (grid[i][j] == guess[0]){
-                        findPaths(grid, [[i, j]], i, j, guess, 1);
+                    if (grid[i][j] == guessUpper[0]){
+                        findPaths(grid, [[i, j]], i, j, guessUpper, 1);
                     }
                 }
             }
@@ -62,17 +64,30 @@ function PlayerGuess({guess, setGuess, solutionSet, setWordCount, setScore, foun
     //if guess in solution -> later, some animation / stronger visual indication of change! (enlarge text, color, flash, etc)
         //setWordCount
         //setScore
-
-    //incorrect guess turns red??
     const handleKeyEvent = (e) => {
         const word = e.target.value;
         if (e.key == "Enter"){
-            if (solutionSet.has(word) && !found.has(word)){
-                setFound(prev => new Set(prev).add(word))
-                setWordCount(prev => prev + 1);
-                setScore(prev => prev + calculateScore(word));
+            setSubmitted(true);
+
+            if (solutionSet.has(word)){
+                setCorrect(true);
+                if (!found.has(word)){
+                    setFound(prev => new Set(prev).add(word))
+                    setWordCount(prev => prev + 1);
+                    setScore(prev => prev + calculateScore(word));
+                }
+                else{
+                    setInFound(true);
+                }
             }
-            setPath([]);
+
+            setTimeout(() => {
+                setSubmitted(false)
+                setPath([]);
+                setCorrect(false);
+                setInFound(false);
+            }, 200)
+
             setGuess("");
         }
     }
@@ -90,10 +105,6 @@ function PlayerGuess({guess, setGuess, solutionSet, setWordCount, setScore, foun
             onChange = {(e) => handleChange(e.target.value)}
             onKeyDown = {(e) => handleKeyEvent(e)}
              />
-
-            <div>
-                {guess}
-            </div>
 
         </GuessContainer>
     )
