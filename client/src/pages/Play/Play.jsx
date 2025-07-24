@@ -1,20 +1,21 @@
 import {useState, useEffect} from "react";
+import {useNavigate} from "react-router-dom"
 import {PlayContainer, GridContainer, GridItem} from "./PlayStyles.jsx"
 import PlayData from "../../components/PlayData/PlayData.jsx"
 import PlayerGuess from "../../components/PlayerGuess/PlayerGuess.jsx"
+import PlayGrid from "../../components/PlayGrid/PlayGrid.jsx"
 
 function Play(){
     const [grid, setGrid] = useState(Array(4).fill().map(() => Array(4).fill("")));
     const [wordCount, setWordCount] = useState(0);
     const [score, setScore] = useState(0);
     const [guess, setGuess] = useState("");
-
-    const [solutions, setSolutions] = useState(new Set());
-
+    const [solutionSet, setSolutionSet] = useState(new Set());
+    const [solutions, setSolutions] = useState([]);
     const [found, setFound] = useState(new Set());
-
     const [path, setPath] = useState([])
-
+    const [timeLeft, setTimeLeft] = useState(80);
+    const navigate = useNavigate();
     
     const setUp = async () => {
         //retrieve board
@@ -52,7 +53,8 @@ function Play(){
             }
 
             const { solutions, solutionSet } = await response.json();
-            setSolutions(new Set(solutionSet));
+            setSolutions(solutions);
+            setSolutionSet(new Set(solutionSet));
         } catch (err) {
             console.log("error", err);
         }
@@ -64,41 +66,47 @@ function Play(){
     }, [])
 
 
-    const highlightColor = (row, col) => {
-        if (path.length == 0){
-            return "transparent"
+    useEffect(() => {
+        if (timeLeft <= 0){
+            navigate('/results', {
+                state: {
+                    gridRes: grid,
+                    solutionRes: solutions,
+                    wordCountRes: wordCount,
+                    scoreRes: score,
+                    foundRes: found
+                }
+            })            
         }
 
-        for (let i = 0; i < path.length; i++){
-            if (row == path[i][0] && col == path[i][1]){
-                return "blue"
-            }
-        }
+        const timer = setTimeout(() => {
+            setTimeLeft(prev => prev-1);
+        }, 10)
 
-        return "transparent"
+        return () => clearTimeout(timer);
+    }, [timeLeft])
+
+    const formatTime = (time) => {
+        const mins = Math.floor(time / 60);
+        const secs = time % 60;
+        return `${mins}:${secs.toString().padStart(2, '0')}`
     }
 
     return (
         <PlayContainer>
-        <PlayData wordCount = {wordCount} score = {score}/>      
+        <PlayData wordCount = {wordCount} score = {score}/>     
 
-        <GridContainer>
-            {grid.map((row, rowIndex) =>            
-                row.map((letter, colIndex) =>
-                    <GridItem
-                    key = {`${rowIndex}-${colIndex}`}
-                    style = {{ boxShadow: `0 0 5px 5px ${highlightColor(rowIndex, colIndex)}`}}
-                    >
-                        {letter}
-                    </GridItem>
-                )
-            )}
-        </GridContainer>
+
+        <div>
+            {formatTime(timeLeft)}
+        </div> 
+
+        <PlayGrid grid = {grid} path = {path}/>
 
         <PlayerGuess 
         guess = {guess}
         setGuess = {setGuess}
-        solutions = {solutions}
+        solutionSet = {solutionSet}
         setWordCount = {setWordCount} 
         setScore = {setScore}
         found = {found}

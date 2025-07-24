@@ -1,6 +1,6 @@
 import {GuessContainer, InputBox} from './PlayerGuessStyles.jsx'
 
-function PlayerGuess({guess, setGuess, solutions, setWordCount, setScore, found, setFound, setPath, grid}){
+function PlayerGuess({guess, setGuess, solutionSet, setWordCount, setScore, found, setFound, setPath, grid}){
     
     function findPaths(grid, visiting, row, col, word, i){
         const dirs = [[0, 1], [1, 0], [0, -1], [-1, 0], [1, 1], [1, -1], [-1, 1], [-1, -1]];
@@ -67,7 +67,7 @@ function PlayerGuess({guess, setGuess, solutions, setWordCount, setScore, found,
     const handleKeyEvent = (e) => {
         const word = e.target.value;
         if (e.key == "Enter"){
-            if (solutions.has(word) && !found.has(word)){
+            if (solutionSet.has(word) && !found.has(word)){
                 setFound(prev => new Set(prev).add(word))
                 setWordCount(prev => prev + 1);
                 setScore(prev => prev + calculateScore(word));
