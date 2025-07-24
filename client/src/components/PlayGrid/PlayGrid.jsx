@@ -1,7 +1,8 @@
 import {GridItem} from "./PlayGridStyles.jsx"
 import {GridContainer, Title} from "../../styles/globalStyles.jsx"
+import PathDisplay from "../../components/PathDisplay/PathDisplay.jsx"
 
-function PlayGrid({grid, path, submitted, correct, inFound, endpage = true}){
+function PlayGrid({grid, gridRef, path, submitted, correct, inFound, endpage = true}){
     const highlightColorUnsubmitted = (row, col) => {
         if (path.length == 0){
             return "transparent"
@@ -88,7 +89,7 @@ function PlayGrid({grid, path, submitted, correct, inFound, endpage = true}){
     return(
         <div>
         {endpage && <Title>Your Board</Title>}
-        <GridContainer>
+        <GridContainer ref = {gridRef}>
             {grid.map((row, rowIndex) =>            
                 row.map((letter, colIndex) =>
                     <GridItem
@@ -99,6 +100,12 @@ function PlayGrid({grid, path, submitted, correct, inFound, endpage = true}){
                     </GridItem>
                 )
             )}
+        <PathDisplay
+        solutionPath = {path}
+        submitted = {submitted}
+        correct = {correct}
+        inFound = {inFound}
+        ></PathDisplay>
         </GridContainer>
         </div>
     )
