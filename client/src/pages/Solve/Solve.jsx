@@ -1,9 +1,8 @@
-import React, {useState, useEffect, useRef} from "react"
-import {Background, SolveContainer, SolutionDisplay} from "../../styles/globalStyles.jsx"
-import {Title} from "./SolveStyles.jsx"
+import React, {useState, useRef} from "react"
+import {SolveContainer, SolutionDisplay} from "../../styles/globalStyles.jsx"
+import {Background, Title} from "./SolveStyles.jsx"
 import InputGrid from "../../components/InputGrid/InputGrid.jsx";
 import Solutions from "../../components/Solutions/Solutions.jsx"
-import PathDisplay from "../../components/PathDisplay/PathDisplay.jsx"
 import backgroundImg from "../../assets/background.png"
 
 
@@ -18,18 +17,6 @@ function Solve() {
   const [solutions, setSolutions] = useState([]);
   const [solutionPath, setSolutionPath] = useState([[]]);
 
-  // const gridRef = useRef(null);
-  // const [gridOffset, setGridOffset] = useState({ x: 0, y: 0 });
-
-  // useEffect(() => {
-  //   if (gridRef.current) {
-  //     const rect = gridRef.current.getBoundingClientRect();
-  //     setGridOffset({ x: rect.left, y: rect.top });
-  //   }
-  // }, []);
-
-
-
   return (
     <>
     <Background src = {backgroundImg}/>
@@ -39,7 +26,6 @@ function Solve() {
         <InputGrid grid = {grid} setGrid = {setGrid} inputRefs = {inputRefs} setSolutions = {setSolutions} solutionPath = {solutionPath}/>  
         <Solutions solutions = {solutions} setSolutionPath = {setSolutionPath}/>
       </SolutionDisplay>
-      {/* <PathDisplay solutionPath = {solutionPath} offset = {gridOffset}></PathDisplay> */}
     </SolveContainer>
     </>
   )

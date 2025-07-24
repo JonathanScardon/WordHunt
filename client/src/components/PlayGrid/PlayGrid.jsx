@@ -1,4 +1,4 @@
-import {GridItem} from "./PlayGridStyles.jsx"
+import {PlayWrapper, GridItem} from "./PlayGridStyles.jsx"
 import {GridContainer, Title} from "../../styles/globalStyles.jsx"
 import PathDisplay from "../../components/PathDisplay/PathDisplay.jsx"
 
@@ -87,7 +87,7 @@ function PlayGrid({grid, gridRef, path, submitted, correct, inFound, endpage = t
 
 
     return(
-        <div>
+        <PlayWrapper>
         {endpage && <Title>Your Board</Title>}
         <GridContainer ref = {gridRef}>
             {grid.map((row, rowIndex) =>            
@@ -107,7 +107,7 @@ function PlayGrid({grid, gridRef, path, submitted, correct, inFound, endpage = t
         inFound = {inFound}
         ></PathDisplay>
         </GridContainer>
-        </div>
+        </PlayWrapper>
     )
 }
 

@@ -63,7 +63,7 @@ function Play(){
 
         const timer = setTimeout(() => {
             setTimeLeft(prev => prev-1);
-        }, 1000000)
+        }, 10)
 
         return () => clearTimeout(timer);
     }, [timeLeft])
