@@ -49,6 +49,8 @@ app.post('/solve', (req, res) => {
     let solutionSet = new Set();
     const solutions = solve(grid, solutionSet);
 
+    console.log(solutionSet.size);
+
     res.json({
         solutions: solutions,
         solutionSet: Array.from(solutionSet)
@@ -57,26 +59,39 @@ app.post('/solve', (req, res) => {
 
 
 
-// fills grid based on letter freqs
 app.get('/generateGrid', (req, res) => {
     let grid = Array(4).fill().map(() => Array(4).fill(""));
+    let solutionSet = new Set();
+    let solutions;
 
-    for (let i = 0; i < grid.length; i++){
-        for (let j = 0; j < grid.length; j++){
-            let letter = "";
-            let letterKey = Math.random();
+    while (solutionSet.size < 150){
+        solutionSet = new Set();
+        
+        //fill grid based on letter freqs
+        for (let i = 0; i < grid.length; i++){
+            for (let j = 0; j < grid.length; j++){
+                let letter = "";
+                let letterKey = Math.random();
 
-            for (const item of letterFreqs){
-                if (letterKey >= item.range[0] && letterKey <= item.range[1]){
-                    letter = item.letter;
-                    break;
+                for (const item of letterFreqs){
+                    if (letterKey >= item.range[0] && letterKey <= item.range[1]){
+                        letter = item.letter;
+                        break;
+                    }
                 }
+                
+                grid[i][j] = letter;
             }
-            
-            grid[i][j] = letter;
         }
+
+        solutions = solve(grid, solutionSet);
     }
-    res.json(grid)
+
+    res.json({
+        grid: grid,
+        solutions: solutions,
+        solutionSet: Array.from(solutionSet),   
+    })
 })
 
 /*

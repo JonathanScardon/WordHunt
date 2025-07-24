@@ -21,7 +21,7 @@ function Play(){
     const [path, setPath] = useState([])
     const [timeLeft, setTimeLeft] = useState(80);
     const navigate = useNavigate();
-    
+
     const setUp = async () => {
         //retrieve board
         try {
@@ -33,44 +33,20 @@ function Play(){
             if (!response.ok) {
                 throw new Error('backend failure');
             }
-
-            const data = await response.json();
-            const newGrid = data.map(row => row.map(letter => letter.toUpperCase()))
+            
+            const {grid, solutions, solutionSet} = await response.json();
+            const newGrid = grid.map(row => row.map(letter => letter.toUpperCase()));
             setGrid(newGrid);
-
-            initSolutions(data);
+            setSolutions(solutions);
+            setSolutionSet(new Set(solutionSet))
         } catch (err) {
             console.error('error', err);
         }
     };
-
-    const initSolutions = async (grid) => {
-        try {
-            const response = await fetch('http://localhost:3000/solve', {
-                method: "POST",
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    grid: grid.map(row => row.map(letter => letter.toLowerCase()))
-                })
-            });
-
-            if (!response.ok) {
-                throw new Error("backend failure");
-            }
-
-            const { solutions, solutionSet } = await response.json();
-            setSolutions(solutions);
-            setSolutionSet(new Set(solutionSet));
-        } catch (err) {
-            console.log("error", err);
-        }
-    };
-
    
     useEffect(() => {
         setUp();
     }, [])
-
 
     useEffect(() => {
         if (timeLeft <= 0){
