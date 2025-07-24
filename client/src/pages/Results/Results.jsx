@@ -1,8 +1,9 @@
 import {useState, useEffect} from "react"
 import {useLocation} from "react-router-dom"
-import {ResultContainer, ResultDisplay} from "./ResultsStyles.jsx"
+import {Background, SolveContainer, SolutionDisplay} from "../../styles/globalStyles.jsx"
 import Solutions from "../../components/Solutions/Solutions.jsx"
 import PlayGrid from "../../components/PlayGrid/PlayGrid.jsx"
+import backgroundImg from "../../assets/background.png"
 
 
 function Results(){
@@ -27,19 +28,19 @@ function Results(){
 
     return(
         <>
-        <ResultContainer>
-
+        <SolveContainer>
+            <Background src = {backgroundImg}/>
             <div>
                 <div>Word Count: {wordCount}</div>
                 <div>Score: {score}</div>
             </div>
 
-            <ResultDisplay>
+            <SolutionDisplay>
                 <PlayGrid grid = {grid} path = {solutionPath}/>
                 <Solutions solutions = {solutions} setSolutionPath = {setSolutionPath}/>
-            </ResultDisplay>
+            </SolutionDisplay>
 
-        </ResultContainer>
+        </SolveContainer>
         </>
     )
 }
