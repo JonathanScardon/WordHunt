@@ -1,4 +1,4 @@
-import {useState, useEffect} from "react";
+import {useState, useEffect, useRef} from "react";
 import {useNavigate} from "react-router-dom"
 import PlayerData from "../../components/PlayerData/PlayerData.jsx"
 import PlayerGuess from "../../components/PlayerGuess/PlayerGuess.jsx"
@@ -63,7 +63,7 @@ function Play(){
 
         const timer = setTimeout(() => {
             setTimeLeft(prev => prev-1);
-        }, 1000)
+        }, 1000000)
 
         return () => clearTimeout(timer);
     }, [timeLeft])
@@ -88,7 +88,7 @@ function Play(){
 
         <PlayGrid
         grid = {grid}
-        path = {path} 
+        path = {path}
         submitted = {submitted}
         correct = {correct}
         inFound = {inFound}

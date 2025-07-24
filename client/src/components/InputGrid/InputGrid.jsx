@@ -1,5 +1,6 @@
 import {GridItem, Button, Buttons} from "./InputGridStyles.jsx"
 import {GridContainer, Title} from "../../styles/globalStyles.jsx"
+import PathDisplay from "../../components/PathDisplay/PathDisplay.jsx"
 
 
 //TODO: overwrite current values on the grid
@@ -172,6 +173,7 @@ function InputGrid({grid, setGrid, inputRefs, setSolutions, solutionPath}){
                 />
             )
         )}
+        <PathDisplay solutionPath = {solutionPath}></PathDisplay>
         </GridContainer>
         <Buttons>
             <Button onClick = {solve}>Solve</Button> 

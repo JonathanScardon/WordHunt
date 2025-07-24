@@ -1,4 +1,4 @@
-import React, {useState, useRef} from "react"
+import React, {useState, useEffect, useRef} from "react"
 import {Background, SolveContainer, SolutionDisplay} from "../../styles/globalStyles.jsx"
 import {Title} from "./SolveStyles.jsx"
 import InputGrid from "../../components/InputGrid/InputGrid.jsx";
@@ -18,6 +18,17 @@ function Solve() {
   const [solutions, setSolutions] = useState([]);
   const [solutionPath, setSolutionPath] = useState([[]]);
 
+  // const gridRef = useRef(null);
+  // const [gridOffset, setGridOffset] = useState({ x: 0, y: 0 });
+
+  // useEffect(() => {
+  //   if (gridRef.current) {
+  //     const rect = gridRef.current.getBoundingClientRect();
+  //     setGridOffset({ x: rect.left, y: rect.top });
+  //   }
+  // }, []);
+
+
 
   return (
     <>
@@ -28,7 +39,7 @@ function Solve() {
         <InputGrid grid = {grid} setGrid = {setGrid} inputRefs = {inputRefs} setSolutions = {setSolutions} solutionPath = {solutionPath}/>  
         <Solutions solutions = {solutions} setSolutionPath = {setSolutionPath}/>
       </SolutionDisplay>
-      <PathDisplay solutionPath = {solutionPath}></PathDisplay>
+      {/* <PathDisplay solutionPath = {solutionPath} offset = {gridOffset}></PathDisplay> */}
     </SolveContainer>
     </>
   )
