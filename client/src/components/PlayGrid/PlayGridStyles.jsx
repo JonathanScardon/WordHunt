@@ -17,3 +17,7 @@ display: flex;
 align-items: center;
 justify-content: center;
 `
+
+export const PlayWrapper = styled.div`
+z-index:1;
+`
