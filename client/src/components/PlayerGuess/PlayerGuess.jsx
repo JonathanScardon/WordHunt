@@ -28,7 +28,7 @@ function PlayerGuess({guess, setGuess, setSubmitted, setCorrect, setInFound, sol
     //calls dfs on player guess
         //setsPath for all paths of current guess!
     const handleChange = (val) => {
-        const guess = val.replace(/[^a-zA-Z]/g, '');
+        const guess = val.replace(/[^a-zA-Z]/g, '').toLowerCase();
         setGuess(guess);
 
         const guessUpper = guess.toUpperCase()
