@@ -84,7 +84,7 @@ function Play(){
 
     const timer = setTimeout(() => {
       setTimeLeft(prev => prev - 1);
-    }, 100);
+    }, 1000);
 
     return () => clearTimeout(timer);
     }, [timeLeft, navigate, grid, solutions, wordCount, score, found, paused]);
