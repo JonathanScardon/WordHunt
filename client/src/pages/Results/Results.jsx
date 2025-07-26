@@ -1,5 +1,6 @@
 import {useState, useEffect} from "react"
 import {useLocation} from "react-router-dom"
+import {HeaderWrapper, Title, DataContainer, Data} from "./ResultsStyles.jsx"
 import {Background, SolveContainer, SolutionDisplay} from "../../styles/globalStyles.jsx"
 import Solutions from "../../components/Solutions/Solutions.jsx"
 import PlayGrid from "../../components/PlayGrid/PlayGrid.jsx"
@@ -14,7 +15,10 @@ function Results(){
     const [solutionPath, setSolutionPath] = useState([]);
     const [wordCount, setWordCount] = useState(0);
     const [score, setScore] = useState(0);
-    const [found, setFound] = useState([]);
+    const [foundSet, setFoundSet] = useState(new Set());
+
+
+    const [inFound, setInFound] = useState(false);
 
 
     useEffect(() => {
@@ -22,7 +26,7 @@ function Results(){
         setSolutions(solutionRes);
         setWordCount(wordCountRes);
         setScore(scoreRes);
-        setFound(foundRes);
+        setFoundSet(foundRes);
     }, [])
 
 
@@ -30,14 +34,18 @@ function Results(){
         <>
         <SolveContainer>
             <Background src = {backgroundImg}/>
-            <div>
-                <div>Word Count: {wordCount}</div>
-                <div>Score: {score}</div>
-            </div>
+
+            <HeaderWrapper>
+            <Title>Results</Title>
+            <DataContainer>
+                <Data>Words: {wordCount}</Data>
+                <Data>Score: {score}</Data>
+            </DataContainer>
+            </HeaderWrapper>
 
             <SolutionDisplay>
-                <PlayGrid grid = {grid} path = {solutionPath}/>
-                <Solutions solutions = {solutions} setSolutionPath = {setSolutionPath}/>
+                <PlayGrid grid = {grid} path = {solutionPath} inFound = {inFound}/>
+                <Solutions solutions = {solutions} setSolutionPath = {setSolutionPath} foundSet = {foundSet} setInFound = {setInFound}/>
             </SolutionDisplay>
 
         </SolveContainer>

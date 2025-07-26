@@ -86,7 +86,7 @@ function PlayerGuess({guess, setGuess, setSubmitted, setCorrect, setInFound, sol
                 setPath([]);
                 setCorrect(false);
                 setInFound(false);
-            }, 200)
+            }, 450)
 
             setGuess("");
         }

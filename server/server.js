@@ -64,7 +64,7 @@ app.get('/generateGrid', (req, res) => {
     let solutionSet = new Set();
     let solutions;
 
-    while (solutionSet.size < 150){
+    while (solutionSet.size < 225){
         solutionSet = new Set();
         
         //fill grid based on letter freqs
@@ -86,6 +86,8 @@ app.get('/generateGrid', (req, res) => {
 
         solutions = solve(grid, solutionSet);
     }
+
+    console.log("final size: " + solutionSet.size)
 
     res.json({
         grid: grid,

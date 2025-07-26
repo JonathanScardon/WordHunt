@@ -1,6 +1,6 @@
-import {Wrapper, SolutionsContainer, Title, ScoreSection, ScoreTitle, Score, SolutionItem} from "./SolutionsStyles.jsx"
+import {Wrapper, SolutionsContainer, Title, ScoreSection, ScoreTitle, Score, SolutionItem, Message} from "./SolutionsStyles.jsx"
 
-function Solutions({solutions, setSolutionPath}){
+function Solutions({solutions, setSolutionPath, foundSet = new Set(), setInFound = () => {}}){
     if (solutions.length == 0){
         return (
             <Wrapper>
@@ -9,9 +9,35 @@ function Solutions({solutions, setSolutionPath}){
         )
     }
 
+    
+    const handleMouseEnter = (path, word) => {
+        if (foundSet.has(word)){
+            setInFound(true);
+        }
+        setSolutionPath(path);
+    }
+
+    const handleMouseLeave = () => {
+        setInFound(false);
+        setSolutionPath([]);
+    }
+
+
+    const itemColor = (word) => {
+        if (foundSet.has(word)){
+            return "rgb(73, 0, 255)"
+        }
+        else{
+            return  "#6abc3a"
+        }
+    }
+
     return (
         <Wrapper>
-        <Title>Solutions</Title>
+        <Title>
+            Solutions
+            <Message>*Tip: hover over words*</Message>
+        </Title>
         <SolutionsContainer>
         {solutions.map(({ pointVal, words }) => (
             <ScoreSection key = {pointVal}>
@@ -25,8 +51,9 @@ function Solutions({solutions, setSolutionPath}){
                 {words.map(({word, path}, i) => (
                     <SolutionItem 
                         key = {`${pointVal}-${i}`}
-                        onMouseEnter = {() => setSolutionPath(path)}
-                        onMouseLeave= {() => setSolutionPath([])}
+                        onMouseEnter = {() => handleMouseEnter(path, word)}
+                        onMouseLeave= {() => handleMouseLeave()}
+                        style = {{background: itemColor(word)}}
                         >
                             {word}
                     </SolutionItem>

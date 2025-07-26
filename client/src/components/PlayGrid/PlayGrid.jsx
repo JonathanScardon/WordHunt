@@ -61,7 +61,12 @@ function PlayGrid({grid, gridRef, path, submitted, correct, inFound, endpage = t
 
         for (let i = 1; i < path.length; i++){
             if (row == path[i][0] && col == path[i][1]){
-                return "rgb(106, 188, 58)"
+                if (inFound){
+                    return "rgb(73, 0, 255)"
+                }
+                else{
+                    return "rgb(106, 188, 58)"
+                }
             }
         }
 
