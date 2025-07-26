@@ -1,11 +1,11 @@
 import styled from "styled-components"
 
 export const Wrapper = styled.div`
-width: 45%;
+width:50%;
 `
 
 export const SolutionsContainer = styled.div`
-  max-height: 50vh;
+  max-height: 55vh;
   overflow-y: auto;
 
   &::-webkit-scrollbar {
@@ -13,17 +13,18 @@ export const SolutionsContainer = styled.div`
   }
 
   &::-webkit-scrollbar-track {
-    background: #1d1d1dff;
+    background: #2e2e2eff;
     border-radius:4px;
   }
 
   &::-webkit-scrollbar-thumb {
-    background: #373737ff;
+    background: #5f5f5fff;
     border-radius: 4px;
   }
 
   &::-webkit-scrollbar-thumb:hover {
-    background: #454545ff;
+    background: #8a8a8aff;
+    cursor:pointer;
   }
 
 `;
@@ -32,7 +33,7 @@ export const SolutionsContainer = styled.div`
 export const Title = styled.h3`
 text-align:center;
 margin-top: 0px;
-margin-bottom: 20px;
+margin-bottom:0px;
 `
 
 export const ScoreSection = styled.div`
@@ -46,8 +47,8 @@ margin-right: 2%;
 padding: 2%;
 font-size:90%;
 border-radius: 3%;
-background: #6abc3a;
 box-shadow: inset 0px 5px #ffffff36;
+cursor:pointer;
 `
 
 export const ScoreTitle = styled.div`
@@ -64,4 +65,11 @@ box-shadow: inset 0px 5px #ffffff36;
 padding-top:1.5%;
 padding-bottom:1.5%;
 border-radius:2px;
+`
+
+export const Message = styled.div`
+text-align:center;
+font-size:60%;
+margin-top:8px;
+margin-bottom:5px;
 `

@@ -3,7 +3,7 @@ import styled from "styled-components"
 export const GuessContainer = styled.div`
 display:flex;
 flex-direction:row;
-margin-top: 3%;
+margin-top: 2%;
 align-items:center;
 justify-content: center;
 // background:red;

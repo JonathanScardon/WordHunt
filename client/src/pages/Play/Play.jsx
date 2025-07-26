@@ -3,7 +3,11 @@ import {useNavigate} from "react-router-dom"
 import PlayerData from "../../components/PlayerData/PlayerData.jsx"
 import PlayerGuess from "../../components/PlayerGuess/PlayerGuess.jsx"
 import PlayGrid from "../../components/PlayGrid/PlayGrid.jsx"
-import {PlayContainer, TimerContainer} from "./PlayStyles.jsx"
+
+import Loading from "../../components/Loading/Loading.jsx"
+import TimesUp from "../../components/TimesUp/TimesUp.jsx"
+
+import {PlayContainer} from "./PlayStyles.jsx"
 import {Background} from "../../styles/globalStyles.jsx"
 import backgroundImg from "../../assets/background.png"
 
@@ -20,7 +24,9 @@ function Play(){
     const [found, setFound] = useState(new Set());
     const [path, setPath] = useState([])
     const [timeLeft, setTimeLeft] = useState(80);
+    const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
+    const hasNavigated = useRef(false);
 
     const setUp = async () => {
         //retrieve board
@@ -41,6 +47,9 @@ function Play(){
             setSolutionSet(new Set(solutionSet))
         } catch (err) {
             console.error('error', err);
+        } finally {
+            setLoading(false);
+            setTimeLeft(80)
         }
     };
    
@@ -48,25 +57,33 @@ function Play(){
         setUp();
     }, [])
 
+
     useEffect(() => {
-        if (timeLeft <= 0){
+        if (timeLeft <= 0) {
+        if (!hasNavigated.current) {
+            hasNavigated.current = true;
+            setTimeout(() => {
             navigate('/results', {
                 state: {
-                    gridRes: grid,
-                    solutionRes: solutions,
-                    wordCountRes: wordCount,
-                    scoreRes: score,
-                    foundRes: found
+                gridRes: grid,
+                solutionRes: solutions,
+                wordCountRes: wordCount,
+                scoreRes: score,
+                foundRes: found
                 }
-            })            
+            });
+            }, 4000);
+        }
+        return;
         }
 
-        const timer = setTimeout(() => {
-            setTimeLeft(prev => prev-1);
-        }, 10)
+    const timer = setTimeout(() => {
+      setTimeLeft(prev => prev - 1);
+    }, 1000);
 
-        return () => clearTimeout(timer);
-    }, [timeLeft])
+    return () => clearTimeout(timer);
+    }, [timeLeft, navigate, grid, solutions, wordCount, score, found]);
+
 
     const formatTime = (time) => {
         const mins = Math.floor(time / 60);
@@ -74,18 +91,21 @@ function Play(){
         return `${mins}:${secs.toString().padStart(2, '0')}`
     }
 
+    if (loading){
+        return (
+            <Loading/>
+        );
+    }
+
     return (
         <PlayContainer>
         <Background src = {backgroundImg}/>
+        {timeLeft == 0 && <TimesUp />}
 
-        
+        <div>{formatTime(timeLeft)}</div> 
+
         <PlayerData wordCount = {wordCount} score = {score}/>     
         
-        
-        <TimerContainer>
-            {formatTime(timeLeft)}
-        </TimerContainer> 
-
         <PlayGrid
         grid = {grid}
         path = {path}

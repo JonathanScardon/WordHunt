@@ -34,12 +34,12 @@ box-shadow: inset 0px 5px #ffffff16;
 
 &:hover{
 box-shadow: inset 0px 5px #ffffff4c;
-background:rgb(255, 0, 0);
+background:rgb(0, 197, 255);
 }
 
 &:active{
 box-shadow: inset 0px 5px #ffffff4c;
-background:rgba(178, 0, 0, 1);
+background: rgba(0, 149, 194, 1);
 }
 
 `

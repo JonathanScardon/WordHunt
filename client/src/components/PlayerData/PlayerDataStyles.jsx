@@ -3,7 +3,8 @@ import styled, {keyframes} from "styled-components"
 export const DataContainer = styled.div`
 display:flex;
 flex-direction: column;
-margin-bottom: 1%;
+margin-top:.5%;
+margin-bottom: 1.5%;
 `
 
 const pop = keyframes`
@@ -15,8 +16,10 @@ const pop = keyframes`
 export const DataAnimation = styled.span`
 display: inline-block;
 transition: transform 0.2s ease;
-// background:blue;
 margin-top:5%;
+
+font-size: 20px;
+
 &.pop {
 animation: ${pop} 300ms ease;
 }

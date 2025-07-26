@@ -1,7 +1,7 @@
 import {Link} from "react-router-dom"
 import logoImg from "../../assets/logo-horizontal.png"
 import backgroundImg from "../../assets/background.png"
-import {Background, HomeContainer, Logo} from "./HomeStyles.jsx"
+import {Background, HomeContainer, Logo, Button, ButtonContainer} from "./HomeStyles.jsx"
 
 function Home(){
     return (
@@ -10,14 +10,16 @@ function Home(){
         
         <HomeContainer>
             <Logo src = {logoImg} alt = ""/>
-
-             <Link to = "/solve">
-                <button >Solve</button>
-            </Link>
-
-            <Link to = "/play">
-                <button>Play</button>
-            </Link>
+            
+            <ButtonContainer>
+                <Link to = "/play">
+                    <Button>Play</Button>
+                </Link>
+                <Link to = "/solve">
+                    <Button>Solve</Button>
+                </Link>
+            </ButtonContainer>
+        
         </HomeContainer>
         </>
        
