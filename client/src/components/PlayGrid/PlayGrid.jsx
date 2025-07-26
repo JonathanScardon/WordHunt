@@ -1,4 +1,4 @@
-import {PlayWrapper, GridItem} from "./PlayGridStyles.jsx"
+import {PlayWrapper, GridItem, StyledLink, Button} from "./PlayGridStyles.jsx"
 import {GridContainer, Title} from "../../styles/globalStyles.jsx"
 import PathDisplay from "../../components/PathDisplay/PathDisplay.jsx"
 
@@ -112,6 +112,9 @@ function PlayGrid({grid, gridRef, path, submitted, correct, inFound, endpage = t
         inFound = {inFound}
         ></PathDisplay>
         </GridContainer>
+        <StyledLink to = "/play">
+            {endpage && <Button>Play Again</Button>}
+        </StyledLink>
         </PlayWrapper>
     )
 }

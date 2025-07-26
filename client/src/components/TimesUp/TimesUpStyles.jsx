@@ -12,7 +12,7 @@ const flash = keyframes`
 export const Message = styled.div`
 position:absolute;
 margin-top: 20vh;
-font-size:150px;
+font-size:120px;
 color:red;
 z-index:2;
 text-align:center;

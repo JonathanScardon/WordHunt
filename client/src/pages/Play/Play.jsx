@@ -3,10 +3,9 @@ import {useNavigate} from "react-router-dom"
 import PlayerData from "../../components/PlayerData/PlayerData.jsx"
 import PlayerGuess from "../../components/PlayerGuess/PlayerGuess.jsx"
 import PlayGrid from "../../components/PlayGrid/PlayGrid.jsx"
-
 import Loading from "../../components/Loading/Loading.jsx"
 import TimesUp from "../../components/TimesUp/TimesUp.jsx"
-
+import Header from "../../components/Header/Header.jsx"
 import {PlayContainer} from "./PlayStyles.jsx"
 import {Background} from "../../styles/globalStyles.jsx"
 import backgroundImg from "../../assets/background.png"
@@ -27,6 +26,8 @@ function Play(){
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
     const hasNavigated = useRef(false);
+    const [paused, setPaused] = useState(false);
+
 
     const setUp = async () => {
         //retrieve board
@@ -77,12 +78,16 @@ function Play(){
         return;
         }
 
+        else if (paused){
+            return
+        }
+
     const timer = setTimeout(() => {
       setTimeLeft(prev => prev - 1);
-    }, 1000);
+    }, 100);
 
     return () => clearTimeout(timer);
-    }, [timeLeft, navigate, grid, solutions, wordCount, score, found]);
+    }, [timeLeft, navigate, grid, solutions, wordCount, score, found, paused]);
 
 
     const formatTime = (time) => {
@@ -98,8 +103,11 @@ function Play(){
     }
 
     return (
+        <>
+        <Header setPaused = {setPaused}/>
         <PlayContainer>
         <Background src = {backgroundImg}/>
+        
         {timeLeft == 0 && <TimesUp />}
 
         <div>{formatTime(timeLeft)}</div> 
@@ -130,6 +138,7 @@ function Play(){
         />
 
         </PlayContainer>
+        </>
     )
 }
 
