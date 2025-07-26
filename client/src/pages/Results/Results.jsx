@@ -2,6 +2,7 @@ import {useState, useEffect} from "react"
 import {useLocation} from "react-router-dom"
 import {HeaderWrapper, Title, DataContainer, Data} from "./ResultsStyles.jsx"
 import {Background, SolveContainer, SolutionDisplay} from "../../styles/globalStyles.jsx"
+import Header from "../../components/Header/Header.jsx"
 import Solutions from "../../components/Solutions/Solutions.jsx"
 import PlayGrid from "../../components/PlayGrid/PlayGrid.jsx"
 import backgroundImg from "../../assets/background.png"
@@ -32,6 +33,7 @@ function Results(){
 
     return(
         <>
+        <Header />
         <SolveContainer>
             <Background src = {backgroundImg}/>
 

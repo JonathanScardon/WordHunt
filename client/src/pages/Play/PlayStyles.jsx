@@ -5,10 +5,7 @@ display:flex;
 flex-direction:column;
 align-items:center;
 z-index:0;
-// margin-left: 20%;
-// margin-right: 20%;
-
-margin-top: 6%;
+margin-top: 4%;
 position:relative;
 `
 

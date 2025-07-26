@@ -31,7 +31,7 @@ z-index:-1;
 export const SolveContainer = styled.div`
 margin-left: 17%;
 margin-right: 17%;
-margin-top: 5%;
+margin-top: 2%;
 position:relative;
 background-color:transparent;
 z-index: 0;
