@@ -1,11 +1,11 @@
 # Word Hunt
 
 ## About
-Welcome to **Word Hunt**, a web application built with **React + Vite** for a fast and responsive frontend and **Node.js** for the backend. This project offers users an interactive word puzzle game, along with a cheat tool
+Welcome to Word Hunt, a word game built with React + Vite for a fast and responsive frontend and Node.js for the backend. This project offers users an interactive word puzzle game, along with a cheat tool
 for retrieving tricky solutions.
 
 ## Algorithm
-This application utilizes **DFS (Depth-First Search)** to efficiently solve puzzles. The algorithm searches for english words on the grid by recursively exploring paths.
+This application utilizes DFS (Depth-First Search) to efficiently solve puzzles.
 
 ## Preview
 <img width="1783" height="939" alt="Screenshot 2025-08-03 154306" src="https://github.com/user-attachments/assets/9a89865b-4415-4b24-957d-cd710ec493e4" />
